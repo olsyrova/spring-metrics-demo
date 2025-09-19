@@ -1,0 +1,38 @@
+version: "3.3"
+
+services:
+  springboot:
+    build: .
+    container_name: springboot
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml # mount config read-only
+    ports:
+      - "9090:9090" # for production deployment should consider exposing via reverse proxy (keep for debugging)
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    environment:
+    - GF_SERVER_DOMAIN=localhost
+    - GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s:%(http_port)s/grafana/
+    - GF_SERVER_SERVE_FROM_SUB_PATH=true
+    volumes:
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+    ports:
+      - "3000:3000" # for production deployment should consider exposing via reverse proxy (keep for debugging)
+
+  nginx:
+    image: nginx
+    container_name: nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - springboot
+      - grafana
