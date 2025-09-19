@@ -13,9 +13,8 @@ This repository contains a containerized monitoring setup for a Java Spring Boot
   - Access under `http://localhost:8080/actuator/prometheus`.
 - **Grafana**
   - Visualizes metrics in a preconfigured dashboard.
-  - Access under `http://localhost:8080/grafana`.
-    → Login with admin / admin
-  - Once logged in, go to Dashboards -> "Spring Boot Metrics Demo" dashboard to see the metrics
+  - Access under `http://localhost:8080/grafana` (Login is disabled for simplification.)
+  - Go to Dashboards -> "Spring Boot Metrics Demo" dashboard to see the metrics
 - **NGINX Reverse Proxy**
   - Provides unified access under `http://localhost:8080`.
 
