@@ -4,7 +4,7 @@ This repository contains a containerized monitoring setup for a Java Spring Boot
 
 ---
 
-## 📌 Features
+## 📌 Components
 - **Spring Boot Application**
   - Exposes JVM metrics and a custom metric (`custom_random_metric`) returning a random number between 10–50.
   - Access under `http://localhost:8080`
